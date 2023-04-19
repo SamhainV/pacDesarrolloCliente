@@ -83,23 +83,27 @@ function muteEventsOver(nombreJugador, partidasAJugar) {
   console.log(partidasAJugar);*/
 }
 
-function seleccionarJugada(argumento, index) {
-//  console.log(index);
+function seleccionarJugada(imagenes, index) {
+  // Imagenes viene de:
+  // let jugadorId = document.getElementById("jugador");
+  // let imagenes = jugadorId.getElementsByTagName("img");
 
-  console.log("hola " + argumento[index].classList);
- 
-  
-  /*for (let i = 0; i < 3; i++) {
-    if (i == index) {
-      console.log("Valor encontrado!! " + i + " " + index);
-      argumento[index].classList = "seleccionado";
-      console.log("hola " + argumento[index].classList);
-    } else {
-      console.log("Valor NO encontrado!! " + i + " " + index);
-      argumento[index].classList = "noSeleccionado";
-      console.log("adios " + argumento[index].classList);
-    }
-  }*/
+  console.log(Array.isArray(imagenes)); // Da como resultado false (osea que imagenes NO es un array)
+
+  // El forEach no funciona. dice: imagenes.forEach is not a function (Según parece es porqué imagenes no es un array).
+  /* 
+  imagenes.forEach(function (child) {
+    child.classList.replace(child.classList, "noSeleccionado");
+  });
+  */
+
+  // Modifica las clases cuyo valor es seleccionado por noSeleccionado
+  // Es decir, las pone todas a 0.
+  for (const child of imagenes)
+    child.classList.replace(child.classList, "noSeleccionado");
+
+  // A continuación reemplaza el valor "noSeleccionado" por "seleccionado" el la imagen hallamos pulsado
+  imagenes[index].classList.replace(imagenes[index].classList, "seleccionado");
 }
 /*
  * Asignará a todas las imágenes, salvo a la última, el evento que permita seleccionar
@@ -112,19 +116,7 @@ function asignarImagenes(posibilidades) {
   let jugadorId = document.getElementById("jugador");
   let imagenes = jugadorId.getElementsByTagName("img");
 
-  //let imageClass = jugadorId.getElementsByClassName("seleccionado");
-  //console.log(imagenes[0]);
-
-  /*imagenes[0].src.addEventListener("click", seleccionarJugada(), true);
-  console.log(imagenes[0]);*/
-  //console.log(imageClass);
-  //document.getElementsByTagName("button")[0].addEventListener("click", playTheGame, false);
-
-  //console.log(imagenes);
-  // Modifica las imagenes
-
   posibilidades.forEach(function (posValue, index) {
-    //console.log(imagenes[index].classList.value);
     imagenes[index].src = "img/" + posValue + "Jugador.png";
     imagenes[index].addEventListener(
       "click",
@@ -134,41 +126,6 @@ function asignarImagenes(posibilidades) {
       false
     );
   });
-
-  /*posibilidades.forEach(function (posValue, index) {
-    imagenes[index].src = "img/" + posValue + "Jugador.png";
-    imagenes[index].addEventListener("click", seleccionarJugada, false);
-  });*/
-
-  //imagenes[index].addEventListener("click", seleccionarJugada, false);
-
-  //let index = 0;
-  //console.log(imagenes[1]);
-  /*
-   * Por hacer:
-   *
-   * Hay que añadir a cada elemento del array posibilidades: "img/" al inicio y "quien.png" (quien puede ser Jugador u Ordenador) al final.
-   * Añadir cada imagen en su cuadrado y un evento para poder seleccionarlo.
-   */
-
-  //console.log(posibilidades.length);
-  /*posibilidades.forEach(function (elemento) {
-    
-    if (elemento == "piedra") imagenes[0].src = "img/piedraJugador.png";
-    if (elemento == "papel") imagenes[1].src = "img/papelJugador.png";
-    if (elemento == "tijera") imagenes[2].src = "img/tijeraJugador.png";
-
-    imagenes[0] = "img/" + elemento + "Jugador.png";
-  });*/
-
-  /*posibilidades.forEach(function (elemento) {
-    
-  });*/
-
-  /*  
-  do {
-    imagenes[index].src = "img/" + posibilidades[index] + "Jugador.png";
-  } while (++index < posibilidades.length);*/
 }
 
 function playTheGame() {
