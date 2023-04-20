@@ -8,6 +8,13 @@ var posibilidades = ["piedra", "papel", "tijera"];
 document
   .getElementsByTagName("button")[0]
   .addEventListener("click", playTheGame, false);
+/*
+ * Segunda Acción:
+ *  - Asignamos el evento onclick al boton "¡Ya!"
+ */
+document
+  .getElementsByTagName("button")[1]
+  .addEventListener("click", playTheGameNow, false);
 
 // Asignamos la imagenes y los eventos.
 asignarImagenes(posibilidades);
@@ -33,11 +40,12 @@ function evaluarPartidas(partidasAJugar) {
   return ret;
 }
 
+// Añade una clase className a tagName
 function addClassAttr(tagName, className) {
   let tag = tagName;
   tag.classList.add(className);
 }
-
+// Elimina una clase className de tagName
 function delClassAttr(tagName, className) {
   let tag = tagName;
   tag.classList.remove(className);
@@ -79,30 +87,15 @@ function addTotalToSpan(partidasAJugar) {
 function muteEventsOver(nombreJugador, partidasAJugar) {
   nombreJugador.setAttribute("readonly", "true");
   partidasAJugar.setAttribute("readonly", "true");
-  /*console.log(nombreJugador);
-  console.log(partidasAJugar);*/
 }
 
 function seleccionarJugada(imagenes, index) {
-  // Imagenes viene de:
-  // let jugadorId = document.getElementById("jugador");
-  // let imagenes = jugadorId.getElementsByTagName("img");
-
-  console.log(Array.isArray(imagenes)); // Da como resultado false (osea que imagenes NO es un array)
-
-  // El forEach no funciona. dice: imagenes.forEach is not a function (Según parece es porqué imagenes no es un array).
-  /* 
-  imagenes.forEach(function (child) {
-    child.classList.replace(child.classList, "noSeleccionado");
-  });
-  */
-
-  // Modifica las clases cuyo valor es seleccionado por noSeleccionado
-  // Es decir, las pone todas a 0.
+  // Modifica las clases cuyo nombre es "seleccionado" por "noSeleccionado"
   for (const child of imagenes)
     child.classList.replace(child.classList, "noSeleccionado");
 
   // A continuación reemplaza el valor "noSeleccionado" por "seleccionado" el la imagen hallamos pulsado
+  // Según el indice (index).
   imagenes[index].classList.replace(imagenes[index].classList, "seleccionado");
 }
 /*
@@ -143,7 +136,35 @@ function playTheGame() {
     addTotalToSpan(partidasAJugar); // Añade el valor del campo Partidas a jugar al SPAN.
 
     // Elección y tirada
-  } else console.log("Error.");
+  }
+}
 
-  //console.log(valor);
+/*
+ * Al pulsar sobre el botón ¡YA! generará una opción aleatoria para el <img> dentro
+ * del <div> de la “máquina” y sumará una partida en el <span> “actual” que indica el
+ * número de tiradas realizadas hasta el momento.
+ * La opción aleatoria la generará a partir del array “posibilidades” que se suministra
+ * en la primera línea del fichero y se le añadirá la ruta hasta ella, el indicador que es
+ * de “Ordenador” y la extensión del fichero.
+ */
+
+function playTheGameNow() {
+  // Primero tenemos que determinar si hay partidas por jugar.
+  // leyendo el id "total" <h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
+  console.log("play de game now");
+  let spanId = document.getElementById("total");
+  let numPartidas = spanId.innerHTML;
+  console.log(spanId.innerHTML);
+
+  if (numPartidas > 0) {
+    let maquinaId = document.getElementById("maquina");
+    let imagen = maquinaId.getElementsByTagName("img");
+    
+    // Generar número aleatorio entre 0 y el tamaño del array "posibilidades"
+    // random devuelve un número aleatorio entre 0 y 1 el cual multiplicamos por la longitud del array "posibilidades"
+    randonValue = Math.floor(Math.random() * posibilidades.length);
+    console.log(randonValue);
+    posValue = posibilidades[randonValue]
+    imagen[0].src = "img/" + posValue + "Ordenador.png"; 
+  }
 }
