@@ -1,26 +1,6 @@
-// Este array no se puede modificar,
-var posibilidades = ["piedra", "papel", "tijera"];
 
-/*
- * Primera Acción:
- *  - Asignamos el evento onclick al boton "¡JUGAR!"
- */
-document
-  .getElementsByTagName("button")[0]
-  .addEventListener("click", playTheGame, false);
-/*
- * Segunda Acción:
- *  - Asignamos el evento onclick al boton "¡Ya!"
- */
-document
-  .getElementsByTagName("button")[1]
-  .addEventListener("click", playTheGameNow, false);
-
-// Asignamos la imagenes y los eventos.
-asignarImagenes(posibilidades);
-/**********************************************************************************/
-
-function evaluarJugador(nombreJugador) {
+//function evaluarJugador(nombreJugador) {
+const evaluarJugador = (nombreJugador) => {
   let jugador = nombreJugador;
   /*
    * Si la longitud del nombre del jugador es mayor que 3 y el primer caracter no es un número revuelve TRUE. En caso contrario devuelve FALSE.
@@ -28,9 +8,10 @@ function evaluarJugador(nombreJugador) {
    */
   jugador.length > 3 && isNaN(jugador[0]) ? (ret = true) : (ret = false);
   return ret;
-}
+};
 
-function evaluarPartidas(partidasAJugar) {
+//function evaluarPartidas(partidasAJugar) {
+const evaluarPartidas = (partidasAJugar) => {
   let partidas = partidasAJugar;
   /*
    * Si partidas es mayor que 0 devuelve TRUE. En caso contrario FALSE;
@@ -38,25 +19,29 @@ function evaluarPartidas(partidasAJugar) {
    */
   partidas > 0 ? (ret = true) : (ret = false);
   return ret;
-}
+};
 
 // Añade una clase className a tagName
-function addClassAttr(tagName, className) {
+//function addClassAttr(tagName, className) {
+const addClassAttr = (tagName, className) => {
   let tag = tagName;
   tag.classList.add(className);
-}
+};
 // Elimina una clase className de tagName
-function delClassAttr(tagName, className) {
+const delClassAttr = (tagName, className) => {
+  //function delClassAttr(tagName, className) {
   let tag = tagName;
   tag.classList.remove(className);
-}
+};
 
-function verificarJugadorPartidas(nombreJugador, partidasAJugar) {
+//function verificarJugadorPartidas(nombreJugador, partidasAJugar) {
+const verificarJugadorPartidas = (nombreJugador, partidasAJugar) => {
   /********************************************************
    * Devulve TRUE o FALSE según requisitos de la PAC.
    */
   let retJugador = evaluarJugador(nombreJugador.value);
   let retPartidas = evaluarPartidas(partidasAJugar.value);
+
   /********************************************************/
   // Usamos condicional ternario
   /************************************************************************
@@ -72,24 +57,27 @@ function verificarJugadorPartidas(nombreJugador, partidasAJugar) {
 
   if (retJugador && retPartidas) return true;
   else return false;
-}
+};
 
-function addTotalToSpan(partidasAJugar) {
+//function addTotalToSpan(partidasAJugar) {
+const addTotalToSpan = (partidasAJugar) => {
   // Valor actual del SPAN
   let spanId = document.getElementById("total");
   spanId.innerHTML = partidasAJugar.value;
   //console.log(partidasAJugar.value);
-}
+};
 
 /*
  * Desactivar campos de texto Nombre del jugador y número de partidas.
  */
-function muteEventsOver(nombreJugador, partidasAJugar) {
+//function muteEventsOver(nombreJugador, partidasAJugar) {
+const muteEventsOver = (nombreJugador, partidasAJugar) => {
   nombreJugador.setAttribute("readonly", "true");
   partidasAJugar.setAttribute("readonly", "true");
-}
+};
 
-function seleccionarJugada(imagenes, index) {
+//function seleccionarJugada(imagenes, index) {
+const seleccionarJugada = (imagenes, index) => {
   // Modifica las clases cuyo nombre es "seleccionado" por "noSeleccionado"
   for (const child of imagenes)
     child.classList.replace(child.classList, "noSeleccionado");
@@ -97,7 +85,7 @@ function seleccionarJugada(imagenes, index) {
   // A continuación reemplaza el valor "noSeleccionado" por "seleccionado" el la imagen hallamos pulsado
   // Según el indice (index).
   imagenes[index].classList.replace(imagenes[index].classList, "seleccionado");
-}
+};
 /*
  * Asignará a todas las imágenes, salvo a la última, el evento que permita seleccionar
  * la opción del jugador y poner en ellas las imágenes que les corresponden. Estas
@@ -105,7 +93,8 @@ function seleccionarJugada(imagenes, index) {
  * primera línea del fichero JS y se le añadirá la ruta hasta ellas, el indicador que es de
  * “Jugador” y la extensión del fichero.
  */
-function asignarImagenes(posibilidades) {
+//function asignarImagenes(posibilidades) {
+const asignarImagenes = (posibilidades) => {
   let jugadorId = document.getElementById("jugador");
   let imagenes = jugadorId.getElementsByTagName("img");
 
@@ -119,7 +108,7 @@ function asignarImagenes(posibilidades) {
       false
     );
   });
-}
+};
 
 function playTheGame() {
   let nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el nombre del jugador.
@@ -159,12 +148,35 @@ function playTheGameNow() {
   if (numPartidas > 0) {
     let maquinaId = document.getElementById("maquina");
     let imagen = maquinaId.getElementsByTagName("img");
-    
+
     // Generar número aleatorio entre 0 y el tamaño del array "posibilidades"
     // random devuelve un número aleatorio entre 0 y 1 el cual multiplicamos por la longitud del array "posibilidades"
     randonValue = Math.floor(Math.random() * posibilidades.length);
     console.log(randonValue);
-    posValue = posibilidades[randonValue]
-    imagen[0].src = "img/" + posValue + "Ordenador.png"; 
+    posValue = posibilidades[randonValue];
+    imagen[0].src = "img/" + posValue + "Ordenador.png";
   }
 }
+
+
+// Este array no se puede modificar,
+var posibilidades = ["piedra", "papel", "tijera"];
+
+/*
+ * Primera Acción:
+ *  - Asignamos el evento onclick al boton "¡JUGAR!"
+ */
+document
+  .getElementsByTagName("button")[0]
+  .addEventListener("click", playTheGame, false);
+/*
+ * Segunda Acción:
+ *  - Asignamos el evento onclick al boton "¡Ya!"
+ */
+document
+  .getElementsByTagName("button")[1]
+  .addEventListener("click", playTheGameNow, false);
+
+// Asignamos la imagenes y los eventos.
+asignarImagenes(posibilidades);
+/**********************************************************************************/
