@@ -1,4 +1,3 @@
-
 //function evaluarJugador(nombreJugador) {
 const evaluarJugador = (nombreJugador) => {
   let jugador = nombreJugador;
@@ -70,6 +69,7 @@ const addTotalToSpan = (partidasAJugar) => {
 /*
  * Desactivar campos de texto Nombre del jugador y número de partidas.
  */
+
 //function muteEventsOver(nombreJugador, partidasAJugar) {
 const muteEventsOver = (nombreJugador, partidasAJugar) => {
   nombreJugador.setAttribute("readonly", "true");
@@ -110,7 +110,8 @@ const asignarImagenes = (posibilidades) => {
   });
 };
 
-function playTheGame() {
+//function playTheGame() {
+const playTheGame = () => {
   let nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el nombre del jugador.
   let partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Contiene el número de partidas que queremos jugar.
 
@@ -126,7 +127,7 @@ function playTheGame() {
 
     // Elección y tirada
   }
-}
+};
 
 /*
  * Al pulsar sobre el botón ¡YA! generará una opción aleatoria para el <img> dentro
@@ -137,7 +138,8 @@ function playTheGame() {
  * de “Ordenador” y la extensión del fichero.
  */
 
-function playTheGameNow() {
+//function playTheGameNow() {
+const playTheGameNow = () => {
   // Primero tenemos que determinar si hay partidas por jugar.
   // leyendo el id "total" <h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
   console.log("play de game now");
@@ -156,8 +158,7 @@ function playTheGameNow() {
     posValue = posibilidades[randonValue];
     imagen[0].src = "img/" + posValue + "Ordenador.png";
   }
-}
-
+};
 
 // Este array no se puede modificar,
 var posibilidades = ["piedra", "papel", "tijera"];
@@ -179,4 +180,10 @@ document
 
 // Asignamos la imagenes y los eventos.
 asignarImagenes(posibilidades);
+
+let fondo = document.querySelectorAll(".noSeleccionado");
+console.log(Array.isArray(fondo));
+console.log(fondo[0]);
+console.log(fondo[1]);
+
 /**********************************************************************************/
