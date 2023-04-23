@@ -162,7 +162,8 @@ const evaluaResultados = (resultados) => {
   console.log("Tirada de la maquina => " + Maquina);
 
   /*
-   * Las variables Jugador y Maquina contienen el indice de la posición marcada dentro del array
+   * Las variables Jugador y Maquina contienen el indice de posición del array:
+   * var posibilidades = ["piedra", "papel", "tijera"];
    * Jugador = 0 = "Piedra"
    * Jugador = 1 = "Papel"
    * Jugador = 2 = "Tijera"
@@ -171,50 +172,19 @@ const evaluaResultados = (resultados) => {
    * Maquina = 2 = "Tijera"
    */
 
-  if (!Jugador) {
-    // Jugador elige piedra.
-    switch (Maquina) {
-      case 1:
-        console.log("Gana Maquina"); // Si la maquina elige "papel" gana.
-        break;
-      case 2:
-        console.log("Gana Jugador");
-        break;
-      default:
-        console.log("Empate");
-        break;
-    }
-  } else if (Jugador == 1) {
-    // Jugador elige papel.
-    switch (Maquina) {
-      case 0:
-        console.log("Gana Jugador"); // Si la maquina elige "papel" gana.
-        break;
-      case 1:
-        console.log("Empate");
-        break;
-      default:
-        console.log("Gana Maquina");
-        break;
-    }
-  } else if (Jugador == 2) {
-    // Jugador elige tijera.
-    switch (Maquina) {
-      case 0:
-        console.log("Gana Maquina"); // Si la maquina elige "papel" gana.
-        break;
-      case 1:
-        console.log("Gana Jugador");
-        break;
-      default:
-        console.log("Empate");
-        break;
+  if (Jugador == Maquina) console.log("Empate");
+  else {
+    if (!Jugador) {
+      if (Maquina == 1) console.log("Gana Máquina");
+      else if (Maquina == 2) console.log("Gana Jugador");
+    } else if (Jugador == 1) {
+      if (Maquina == 0) console.log("Gana Jugador");
+      else if (Maquina == 2) console.log("Gana Maquina");
+    } else if (Jugador == 2) {
+      if (Maquina == 0) console.log("Gana Maquina");
+      else if (Maquina == 1) console.log("Gana Jugador");
     }
   }
-  /*
-  if (Jugador == 0 && Maquina == 2) console.log("Gana  Jugador");
-  if (Jugador == 0 && Maquina == 1) console.log("Gana  Maquina");
-  if (Jugador == Maquina) console.log("Empate");*/
 };
 
 /*
