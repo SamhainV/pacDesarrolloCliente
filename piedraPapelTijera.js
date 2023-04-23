@@ -254,10 +254,4 @@ document
 
 // Asignamos la imagenes y los eventos.
 asignarImagenes(posibilidades);
-
-/*let fondo = document.querySelectorAll(".noSeleccionado");
-console.log(Array.isArray(fondo));
-console.log(fondo[0]);
-console.log(fondo[1]);
-*/
 /**********************************************************************************/
