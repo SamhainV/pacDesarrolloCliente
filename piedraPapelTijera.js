@@ -129,6 +129,25 @@ const playTheGame = () => {
   }
 };
 
+const obtenerResultados = (posValue) => {
+  let Resultados = [];
+  let tiradaJugador;
+  let tiradaMaquina = posValue;
+  let jugadorId = document.getElementById("jugador");
+  let imagenes = jugadorId.getElementsByTagName("img");
+
+  Array.from(imagenes).forEach(function (posValue, index) {
+    if (imagenes[index].classList.value == "seleccionado")
+      tiradaJugador = posibilidades[index];
+  });
+  /*
+  console.log("tirada jugador => " + tiradaJugador);
+  console.log("tirada maquina => " + tiradaMaquina);
+  */
+  Resultados.push(tiradaJugador);
+  Resultados.push(tiradaMaquina);
+  return Resultados;
+};
 /*
  * Al pulsar sobre el botón ¡YA! generará una opción aleatoria para el <img> dentro
  * del <div> de la “máquina” y sumará una partida en el <span> “actual” que indica el
@@ -142,10 +161,10 @@ const playTheGame = () => {
 const playTheGameNow = () => {
   // Primero tenemos que determinar si hay partidas por jugar.
   // leyendo el id "total" <h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
-  console.log("play de game now");
+  //console.log("play de game now");
   let spanId = document.getElementById("total");
   let numPartidas = spanId.innerHTML;
-  console.log(spanId.innerHTML);
+  //console.log(spanId.innerHTML);
 
   if (numPartidas > 0) {
     let maquinaId = document.getElementById("maquina");
@@ -154,12 +173,28 @@ const playTheGameNow = () => {
     // Generar número aleatorio entre 0 y el tamaño del array "posibilidades"
     // random devuelve un número aleatorio entre 0 y 1 el cual multiplicamos por la longitud del array "posibilidades"
     randonValue = Math.floor(Math.random() * posibilidades.length);
-    console.log(randonValue);
+    //console.log(randonValue);
     posValue = posibilidades[randonValue];
     imagen[0].src = "img/" + posValue + "Ordenador.png";
-  }
+
+    /*
+     * Comprobará el resultado de la jugada teniendo en cuenta que:
+     * - Lo que esté en la primera posición del array “posibilidades” gana a lo que
+     * esté en la última.
+     * - Lo que esté en la posición “n” del array gana a lo que está en la posición “n-
+     * 1” del array. Es decir, lo que esté en la posición 2 gana a lo que está en la
+     * posición 1, y así sucesivamente.
+     */
+    resultados = obtenerResultados(posValue);
+    console.log("Tirada del jugador => " + resultados[0]);
+    console.log("Tirada de la maquina => " + resultados[1]);
+  } else alert("tranki, pulsa jugar primero....");
 };
 
+/*********************************************************************************/
+/******** El programa comienza aquí, ya que al usar funciones flecha *************/
+/******** estas deben de estar ya creadas para poder usarlas. ********************/
+/*********************************************************************************/
 // Este array no se puede modificar,
 var posibilidades = ["piedra", "papel", "tijera"];
 
@@ -181,9 +216,9 @@ document
 // Asignamos la imagenes y los eventos.
 asignarImagenes(posibilidades);
 
-let fondo = document.querySelectorAll(".noSeleccionado");
+/*let fondo = document.querySelectorAll(".noSeleccionado");
 console.log(Array.isArray(fondo));
 console.log(fondo[0]);
 console.log(fondo[1]);
-
+*/
 /**********************************************************************************/
