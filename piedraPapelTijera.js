@@ -158,8 +158,8 @@ const obtenerResultados = (posValue) => {
 const evaluaResultados = (resultados) => {
   let Jugador = resultados[0];
   let Maquina = resultados[1];
-  console.log("Tirada del jugador => " + Jugador);
-  console.log("Tirada de la maquina => " + Maquina);
+  /*console.log("Tirada del jugador => " + Jugador);
+  console.log("Tirada de la maquina => " + Maquina);*/
 
   /*
    * Las variables Jugador y Maquina contienen el indice de posición del array:
@@ -173,28 +173,9 @@ const evaluaResultados = (resultados) => {
    */
 
   if (Jugador == Maquina) console.log("Empate");
-  if (Jugador == Maquina - 1 || Jugador - 2 == Maquina) console.log("Gana Maquina"); 
-  if (Jugador == Maquina - 2 || Jugador - 1 == Maquina) console.log("Gana Jugador"); 
-  /*
-  if (Jugador == Maquina) console.log("Empate");
-  if (Jugador == Maquina - 1) console.log("Gana Maquina"); 
-  if (Jugador == Maquina - 2) console.log("Gana Jugador"); 
-  if (Jugador - 1 == Maquina) console.log("Gana Jugador"); 
-  if (Jugador - 2 == Maquina) console.log("Gana Maquina"); 
-*/
-
-  /*else {
-    if (!Jugador) {
-      if (Maquina == 1) console.log("Gana Máquina"); // - Lo que esté en la posición “n” del array gana a lo que está en la posición “n-1” del array.
-      else if (Maquina == 2) console.log("Gana Jugador"); // - Lo que esté en la primera posición del array “posibilidades” gana a lo que esté en la última.
-    } else if (Jugador == 1) {
-      if (Maquina == 0) console.log("Gana Jugador");// - Lo que esté en la posición “n” del array gana a lo que está en la posición “n-1” del array.
-      else if (Maquina == 2) console.log("Gana Maquina");
-    } else if (Jugador == 2) {
-      if (Maquina == 0) console.log("Gana Maquina");
-      else if (Maquina == 1) console.log("Gana Jugador");
-    }
-  }*/
+  if (Jugador == (Maquina - 1) || (Jugador - 2) == Maquina) console.log("Gana Maquina"); 
+  if (Jugador == (Maquina - 2) || (Jugador - 1) == Maquina) console.log("Gana Jugador"); 
+  
 };
 
 /*
