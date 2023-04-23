@@ -138,7 +138,8 @@ const obtenerResultados = (posValue) => {
 
   Array.from(imagenes).forEach(function (posValue, index) {
     if (imagenes[index].classList.value == "seleccionado")
-      tiradaJugador = posibilidades[index];
+      //tiradaJugador = posibilidades[index];
+      tiradaJugador = index; // número
   });
   /*
   console.log("tirada jugador => " + tiradaJugador);
@@ -148,6 +149,74 @@ const obtenerResultados = (posValue) => {
   Resultados.push(tiradaMaquina);
   return Resultados;
 };
+
+/*
+ * - Lo que esté en la primera posición del array “posibilidades” gana a lo que esté en la última.
+ * - Lo que esté en la posición “n” del array gana a lo que está en la posición “n-1” del array.
+ * Es decir, lo que esté en la posición 2 gana a lo que está en la posición 1, y así sucesivamente.
+ */
+const evaluaResultados = (resultados) => {
+  let Jugador = resultados[0];
+  let Maquina = resultados[1];
+  console.log("Tirada del jugador => " + Jugador);
+  console.log("Tirada de la maquina => " + Maquina);
+
+  /*
+   * Las variables Jugador y Maquina contienen el indice de la posición marcada dentro del array
+   * Jugador = 0 = "Piedra"
+   * Jugador = 1 = "Papel"
+   * Jugador = 2 = "Tijera"
+   * Maquina = 0 = "Piedra"
+   * Maquina = 1 = "Papel"
+   * Maquina = 2 = "Tijera"
+   */
+
+  if (!Jugador) {
+    // Jugador elige piedra.
+    switch (Maquina) {
+      case 1:
+        console.log("Gana Maquina"); // Si la maquina elige "papel" gana.
+        break;
+      case 2:
+        console.log("Gana Jugador");
+        break;
+      default:
+        console.log("Empate");
+        break;
+    }
+  } else if (Jugador == 1) {
+    // Jugador elige papel.
+    switch (Maquina) {
+      case 0:
+        console.log("Gana Jugador"); // Si la maquina elige "papel" gana.
+        break;
+      case 1:
+        console.log("Empate");
+        break;
+      default:
+        console.log("Gana Maquina");
+        break;
+    }
+  } else if (Jugador == 2) {
+    // Jugador elige tijera.
+    switch (Maquina) {
+      case 0:
+        console.log("Gana Maquina"); // Si la maquina elige "papel" gana.
+        break;
+      case 1:
+        console.log("Gana Jugador");
+        break;
+      default:
+        console.log("Empate");
+        break;
+    }
+  }
+  /*
+  if (Jugador == 0 && Maquina == 2) console.log("Gana  Jugador");
+  if (Jugador == 0 && Maquina == 1) console.log("Gana  Maquina");
+  if (Jugador == Maquina) console.log("Empate");*/
+};
+
 /*
  * Al pulsar sobre el botón ¡YA! generará una opción aleatoria para el <img> dentro
  * del <div> de la “máquina” y sumará una partida en el <span> “actual” que indica el
@@ -185,9 +254,9 @@ const playTheGameNow = () => {
      * 1” del array. Es decir, lo que esté en la posición 2 gana a lo que está en la
      * posición 1, y así sucesivamente.
      */
-    resultados = obtenerResultados(posValue);
-    console.log("Tirada del jugador => " + resultados[0]);
-    console.log("Tirada de la maquina => " + resultados[1]);
+    //resultados = obtenerResultados(posValue);
+    resultados = obtenerResultados(randonValue);
+    evaluaResultados(resultados);
   } else alert("tranki, pulsa jugar primero....");
 };
 
