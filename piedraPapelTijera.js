@@ -1,4 +1,3 @@
-//function evaluarJugador(nombreJugador) {
 const evaluarJugador = (nombreJugador) => {
   let jugador = nombreJugador;
   /*
@@ -9,7 +8,6 @@ const evaluarJugador = (nombreJugador) => {
   return ret;
 };
 
-//function evaluarPartidas(partidasAJugar) {
 const evaluarPartidas = (partidasAJugar) => {
   let partidas = partidasAJugar;
   /*
@@ -21,7 +19,6 @@ const evaluarPartidas = (partidasAJugar) => {
 };
 
 // Añade una clase className a tagName
-//function addClassAttr(tagName, className) {
 const addClassAttr = (tagName, className) => {
   let tag = tagName;
   tag.classList.add(className);
@@ -33,7 +30,6 @@ const delClassAttr = (tagName, className) => {
   tag.classList.remove(className);
 };
 
-//function verificarJugadorPartidas(nombreJugador, partidasAJugar) {
 const verificarJugadorPartidas = (nombreJugador, partidasAJugar) => {
   /********************************************************
    * Devulve TRUE o FALSE según requisitos de la PAC.
@@ -58,25 +54,20 @@ const verificarJugadorPartidas = (nombreJugador, partidasAJugar) => {
   else return false;
 };
 
-//function addTotalToSpan(partidasAJugar) {
 const addTotalToSpan = (partidasAJugar) => {
   // Valor actual del SPAN
   let spanId = document.getElementById("total");
   spanId.innerHTML = partidasAJugar.value;
-  //console.log(partidasAJugar.value);
 };
 
 /*
  * Desactivar campos de texto Nombre del jugador y número de partidas.
  */
-
-//function muteEventsOver(nombreJugador, partidasAJugar) {
 const muteEventsOver = (nombreJugador, partidasAJugar) => {
   nombreJugador.setAttribute("readonly", "true");
   partidasAJugar.setAttribute("readonly", "true");
 };
 
-//function seleccionarJugada(imagenes, index) {
 const seleccionarJugada = (imagenes, index) => {
   // Modifica las clases cuyo nombre es "seleccionado" por "noSeleccionado"
   for (const child of imagenes)
@@ -93,7 +84,6 @@ const seleccionarJugada = (imagenes, index) => {
  * primera línea del fichero JS y se le añadirá la ruta hasta ellas, el indicador que es de
  * “Jugador” y la extensión del fichero.
  */
-//function asignarImagenes(posibilidades) {
 const asignarImagenes = (posibilidades) => {
   let jugadorId = document.getElementById("jugador");
   let imagenes = jugadorId.getElementsByTagName("img");
@@ -110,7 +100,6 @@ const asignarImagenes = (posibilidades) => {
   });
 };
 
-//function playTheGame() {
 const playTheGame = () => {
   let nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el nombre del jugador.
   let partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Contiene el número de partidas que queremos jugar.
@@ -141,10 +130,6 @@ const obtenerResultados = (posValue) => {
       //tiradaJugador = posibilidades[index];
       tiradaJugador = index; // número
   });
-  /*
-  console.log("tirada jugador => " + tiradaJugador);
-  console.log("tirada maquina => " + tiradaMaquina);
-  */
   Resultados.push(tiradaJugador);
   Resultados.push(tiradaMaquina);
   return Resultados;
@@ -158,8 +143,7 @@ const obtenerResultados = (posValue) => {
 const evaluaResultados = (resultados) => {
   let Jugador = resultados[0];
   let Maquina = resultados[1];
-  /*console.log("Tirada del jugador => " + Jugador);
-  console.log("Tirada de la maquina => " + Maquina);*/
+
 
   /*
    * Las variables Jugador y Maquina contienen el indice de posición del array:
@@ -175,7 +159,6 @@ const evaluaResultados = (resultados) => {
   if (Jugador == Maquina) console.log("Empate");
   if (Jugador == (Maquina - 1) || (Jugador - 2) == Maquina) console.log("Gana Maquina"); 
   if (Jugador == (Maquina - 2) || (Jugador - 1) == Maquina) console.log("Gana Jugador"); 
-  
 };
 
 /*
@@ -186,15 +169,12 @@ const evaluaResultados = (resultados) => {
  * en la primera línea del fichero y se le añadirá la ruta hasta ella, el indicador que es
  * de “Ordenador” y la extensión del fichero.
  */
-
-//function playTheGameNow() {
 const playTheGameNow = () => {
   // Primero tenemos que determinar si hay partidas por jugar.
   // leyendo el id "total" <h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
   //console.log("play de game now");
   let spanId = document.getElementById("total");
   let numPartidas = spanId.innerHTML;
-  //console.log(spanId.innerHTML);
 
   if (numPartidas > 0) {
     let maquinaId = document.getElementById("maquina");
@@ -203,7 +183,6 @@ const playTheGameNow = () => {
     // Generar número aleatorio entre 0 y el tamaño del array "posibilidades"
     // random devuelve un número aleatorio entre 0 y 1 el cual multiplicamos por la longitud del array "posibilidades"
     randonValue = Math.floor(Math.random() * posibilidades.length);
-    //console.log(randonValue);
     posValue = posibilidades[randonValue];
     imagen[0].src = "img/" + posValue + "Ordenador.png";
 
