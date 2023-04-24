@@ -101,9 +101,6 @@ const asignarImagenes = (posibilidades) => {
 };
 
 const playTheGame = () => {
-  let nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el nombre del jugador.
-  let partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Contiene el número de partidas que queremos jugar.
-
   /*
    * Si la función verificarJugadorPartidas devuelve TRUE continuamos...
    * Volcamos el valor introducido en el <span> “total” que indica el número de tiradas totales que se
@@ -135,6 +132,13 @@ const obtenerResultados = (posValue) => {
   return Resultados;
 };
 
+const putHistorial = (ganador) => {
+  let historial = document.getElementById("historial");
+  const node = document.createElement("li");
+  const textnode = document.createTextNode(ganador);
+  node.appendChild(textnode);
+  historial.appendChild(node);
+};
 /*
  * - Lo que esté en la primera posición del array “posibilidades” gana a lo que esté en la última.
  * - Lo que esté en la posición “n” del array gana a lo que está en la posición “n-1” del array.
@@ -143,7 +147,7 @@ const obtenerResultados = (posValue) => {
 const evaluaResultados = (resultados) => {
   let Jugador = resultados[0];
   let Maquina = resultados[1];
-
+  let historial = document.getElementById("historial");
 
   /*
    * Las variables Jugador y Maquina contienen el indice de posición del array:
@@ -156,9 +160,18 @@ const evaluaResultados = (resultados) => {
    * Maquina = 2 = "Tijera"
    */
 
-  if (Jugador == Maquina) console.log("Empate");
-  if (Jugador == (Maquina - 1) || (Jugador - 2) == Maquina) console.log("Gana Maquina"); 
-  if (Jugador == (Maquina - 2) || (Jugador - 1) == Maquina) console.log("Gana Jugador"); 
+  if (Jugador == Maquina) {
+    console.log("Empate");
+    putHistorial("Empate");
+  }
+  if (Jugador == Maquina - 1 || Jugador - 2 == Maquina) {
+    console.log("Gana Maquina");
+    putHistorial("Gana Máquina");
+  }
+  if (Jugador == Maquina - 2 || Jugador - 1 == Maquina) {
+    console.log("Gana Jugador");
+    putHistorial("Gana " + nombreJugador.value);
+  }
 };
 
 /*
@@ -200,6 +213,10 @@ const playTheGameNow = () => {
   } else alert("tranki, pulsa jugar primero....");
 };
 
+const gameReset = () => {
+  console.log("boton reset");
+};
+
 /*********************************************************************************/
 /******** El programa comienza aquí, ya que al usar funciones flecha *************/
 /******** estas deben de estar ya creadas para poder usarlas. ********************/
@@ -207,6 +224,9 @@ const playTheGameNow = () => {
 // Este array no se puede modificar,
 var posibilidades = ["piedra", "papel", "tijera"];
 
+const nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el obj HTMLInputElement.
+const partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Contiene el obj HTMLInputElement.
+//const botonReset = document.getElementsByTagName("button")[2]; // Botón RESET
 /*
  * Primera Acción:
  *  - Asignamos el evento onclick al boton "¡JUGAR!"
@@ -221,6 +241,14 @@ document
 document
   .getElementsByTagName("button")[1]
   .addEventListener("click", playTheGameNow, false);
+
+/*
+ * Tercera Acción:
+ *  - Asignamos el evento onclick al boton "RESET"
+ */
+document
+  .getElementsByTagName("button")[2]
+  .addEventListener("click", gameReset, false);
 
 // Asignamos la imagenes y los eventos.
 asignarImagenes(posibilidades);
