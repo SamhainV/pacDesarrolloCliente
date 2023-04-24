@@ -243,6 +243,7 @@ const playTheGameNow = () => {
       "Partida terminada\nPulse de nuevo el botón ¡JUGAR! para una nueva partida...."
     );
     unmuteEventsOver(nombreJugador, partidasAJugar); // Vuelve a activar los campos nombre y partidas a jugar.
+    partidasAJugar.value = 0;
   }
 };
 
