@@ -72,6 +72,8 @@ const addActualToSpan = (partidaActual) => {
 const muteEventsOver = (nombreJugador, partidasAJugar) => {
   nombreJugador.setAttribute("readonly", "true");
   partidasAJugar.setAttribute("readonly", "true");
+  let botonPlayTheGame = document.getElementsByTagName("button")[0];
+  botonPlayTheGame.disabled = true;
 };
 
 /*
@@ -80,6 +82,8 @@ const muteEventsOver = (nombreJugador, partidasAJugar) => {
 const unmuteEventsOver = (nombreJugador, partidasAJugar) => {
   nombreJugador.removeAttribute("readonly");
   partidasAJugar.removeAttribute("readonly");
+  let botonPlayTheGame = document.getElementsByTagName("button")[0];
+  botonPlayTheGame.disabled = false;
 };
 
 const seleccionarJugada = (imagenes, index) => {
