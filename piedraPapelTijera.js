@@ -60,12 +60,26 @@ const addTotalToSpan = (partidasAJugar) => {
   spanId.innerHTML = partidasAJugar.value;
 };
 
+const addActualToSpan = (partidaActual) => {
+  // Valor actual del SPAN
+  let spanId = document.getElementById("actual");
+  spanId.innerHTML = partidaActual;
+};
+
 /*
  * Desactivar campos de texto Nombre del jugador y número de partidas.
  */
 const muteEventsOver = (nombreJugador, partidasAJugar) => {
   nombreJugador.setAttribute("readonly", "true");
   partidasAJugar.setAttribute("readonly", "true");
+};
+
+/*
+ * Activar campos de texto Nombre del jugador y número de partidas.
+ */
+const unmuteEventsOver = (nombreJugador, partidasAJugar) => {
+  nombreJugador.removeAttribute("readonly");
+  partidasAJugar.removeAttribute("readonly");
 };
 
 const seleccionarJugada = (imagenes, index) => {
@@ -107,11 +121,37 @@ const playTheGame = () => {
    * podrán realizar.
    */
 
+  /* Si ya estaban el el DOM los elimina. No devuelve ningun valor */
+  document
+    .getElementsByTagName("button")[1]
+    .removeEventListener("click", playTheGameNow, false);
+  /*document
+    .getElementsByTagName("button")[1]
+    .removeEventListener("click", gameReset, false);*/
+
   if (verificarJugadorPartidas(nombreJugador, partidasAJugar)) {
     muteEventsOver(nombreJugador, partidasAJugar); // Desactiva ambos campos
     addTotalToSpan(partidasAJugar); // Añade el valor del campo Partidas a jugar al SPAN.
 
     // Elección y tirada
+    partidaActual = 1;
+    addActualToSpan(partidaActual);
+    console.log(partidaActual);
+    /*
+     * Segunda Acción:
+     *  - Asignamos el evento onclick al boton "¡Ya!"
+     */
+    document
+      .getElementsByTagName("button")[1]
+      .addEventListener("click", playTheGameNow, false);
+
+    /*
+     * Tercera Acción:
+     *  - Asignamos el evento onclick al boton "RESET"
+     */
+  /*  document
+      .getElementsByTagName("button")[2]
+      .addEventListener("click", gameReset, false);*/
   }
 };
 
@@ -132,10 +172,10 @@ const obtenerResultados = (posValue) => {
   return Resultados;
 };
 
-const putHistorial = (ganador) => {
+const putHistorial = (mensaje) => {
   let historial = document.getElementById("historial");
   const node = document.createElement("li");
-  const textnode = document.createTextNode(ganador);
+  const textnode = document.createTextNode(mensaje);
   node.appendChild(textnode);
   historial.appendChild(node);
 };
@@ -189,7 +229,14 @@ const playTheGameNow = () => {
   let spanId = document.getElementById("total");
   let numPartidas = spanId.innerHTML;
 
-  if (numPartidas > 0) {
+  //addActualToSpan(partidaActual);
+  console.log("numero de partidas " + numPartidas);
+  console.log("partida actual " + partidaActual);
+
+  if (numPartidas >= partidaActual) {
+    addActualToSpan(partidaActual);
+    partidaActual++;
+    //addActualToSpan(partidaActual);
     let maquinaId = document.getElementById("maquina");
     let imagen = maquinaId.getElementsByTagName("img");
 
@@ -208,13 +255,43 @@ const playTheGameNow = () => {
      * posición 1, y así sucesivamente.
      */
     //resultados = obtenerResultados(posValue);
+
     resultados = obtenerResultados(randonValue);
     evaluaResultados(resultados);
-  } else alert("tranki, pulsa jugar primero....");
+  } else {
+    alert(
+      "Partida terminada\nPulse de nuevo el botón ¡JUGAR! para una nueva partida...."
+    );
+    unmuteEventsOver(nombreJugador, partidasAJugar); // Vuelve a activar los campos nombre y partidas a jugar.
+    
+  }
 };
 
+/*
+ * Cuando se pulse el botón RESET, mostrará el mensaje “Nueva partida” y realizará
+ * los siguientes cambios en la aplicación:
+ * - Volverá a activar los campos de texto del comienzo de partida, dejando a “0” las partidas introducidas y manteniendo el nombre del jugador.
+ * - Volverá a poner a 0 los contadores de partidas “actual” y “total”.
+ * - Pondrá la imagen por defecto en la opción de la máquina.
+ * - Mantendrá el historial de resultados hasta el momento.
+ */
 const gameReset = () => {
+  partidaActual = 0;
   console.log("boton reset");
+  putHistorial("Nueva partida");
+  unmuteEventsOver(nombreJugador, partidasAJugar); // Vuelve a activar los campos nombre y partidas a jugar.
+  partidasAJugar.value = 0;
+  nombreJugador.value = "";
+  addTotalToSpan(partidasAJugar);
+  addActualToSpan(partidaActual);
+  let maquinaId = document.getElementById("maquina");
+  let imagen = maquinaId.getElementsByTagName("img");
+  imagen[0].src = "img/defecto.png";
+
+  document
+    .getElementsByTagName("button")[1]
+    .removeEventListener("click", playTheGameNow, false);
+  
 };
 
 /*********************************************************************************/
@@ -223,7 +300,7 @@ const gameReset = () => {
 /*********************************************************************************/
 // Este array no se puede modificar,
 var posibilidades = ["piedra", "papel", "tijera"];
-
+let partidaActual = 0;
 const nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el obj HTMLInputElement.
 const partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Contiene el obj HTMLInputElement.
 //const botonReset = document.getElementsByTagName("button")[2]; // Botón RESET
@@ -238,9 +315,9 @@ document
  * Segunda Acción:
  *  - Asignamos el evento onclick al boton "¡Ya!"
  */
-document
+/*document
   .getElementsByTagName("button")[1]
-  .addEventListener("click", playTheGameNow, false);
+  .addEventListener("click", playTheGameNow, false);*/
 
 /*
  * Tercera Acción:
