@@ -129,9 +129,6 @@ const playTheGame = () => {
   document
     .getElementsByTagName("button")[1]
     .removeEventListener("click", playTheGameNow, false);
-  /*document
-    .getElementsByTagName("button")[1]
-    .removeEventListener("click", gameReset, false);*/
 
   if (verificarJugadorPartidas(nombreJugador, partidasAJugar)) {
     muteEventsOver(nombreJugador, partidasAJugar); // Desactiva ambos campos
@@ -140,7 +137,7 @@ const playTheGame = () => {
     // Elección y tirada
     partidaActual = 1;
     addActualToSpan(partidaActual);
-    console.log(partidaActual);
+
     /*
      * Segunda Acción:
      *  - Asignamos el evento onclick al boton "¡Ya!"
@@ -148,14 +145,6 @@ const playTheGame = () => {
     document
       .getElementsByTagName("button")[1]
       .addEventListener("click", playTheGameNow, false);
-
-    /*
-     * Tercera Acción:
-     *  - Asignamos el evento onclick al boton "RESET"
-     */
-  /*  document
-      .getElementsByTagName("button")[2]
-      .addEventListener("click", gameReset, false);*/
   }
 };
 
@@ -168,7 +157,6 @@ const obtenerResultados = (posValue) => {
 
   Array.from(imagenes).forEach(function (posValue, index) {
     if (imagenes[index].classList.value == "seleccionado")
-      //tiradaJugador = posibilidades[index];
       tiradaJugador = index; // número
   });
   Resultados.push(tiradaJugador);
@@ -204,18 +192,11 @@ const evaluaResultados = (resultados) => {
    * Maquina = 2 = "Tijera"
    */
 
-  if (Jugador == Maquina) {
-    console.log("Empate");
-    putHistorial("Empate");
-  }
-  if (Jugador == Maquina - 1 || Jugador - 2 == Maquina) {
-    console.log("Gana Maquina");
-    putHistorial("Gana Máquina");
-  }
-  if (Jugador == Maquina - 2 || Jugador - 1 == Maquina) {
-    console.log("Gana Jugador");
+  if (Jugador == Maquina) putHistorial("Empate");
+  if (Jugador == Maquina - 1 || Jugador - 2 == Maquina)
+    putHistorial("Gana la máquina");
+  if (Jugador == Maquina - 2 || Jugador - 1 == Maquina)
     putHistorial("Gana " + nombreJugador.value);
-  }
 };
 
 /*
@@ -229,18 +210,14 @@ const evaluaResultados = (resultados) => {
 const playTheGameNow = () => {
   // Primero tenemos que determinar si hay partidas por jugar.
   // leyendo el id "total" <h3>Jugando la partida <span id="actual">0</span> de <span id="total">0</span>.</h3>
-  //console.log("play de game now");
+
   let spanId = document.getElementById("total");
   let numPartidas = spanId.innerHTML;
-
-  //addActualToSpan(partidaActual);
-  console.log("numero de partidas " + numPartidas);
-  console.log("partida actual " + partidaActual);
 
   if (numPartidas >= partidaActual) {
     addActualToSpan(partidaActual);
     partidaActual++;
-    //addActualToSpan(partidaActual);
+
     let maquinaId = document.getElementById("maquina");
     let imagen = maquinaId.getElementsByTagName("img");
 
@@ -258,7 +235,6 @@ const playTheGameNow = () => {
      * 1” del array. Es decir, lo que esté en la posición 2 gana a lo que está en la
      * posición 1, y así sucesivamente.
      */
-    //resultados = obtenerResultados(posValue);
 
     resultados = obtenerResultados(randonValue);
     evaluaResultados(resultados);
@@ -267,7 +243,6 @@ const playTheGameNow = () => {
       "Partida terminada\nPulse de nuevo el botón ¡JUGAR! para una nueva partida...."
     );
     unmuteEventsOver(nombreJugador, partidasAJugar); // Vuelve a activar los campos nombre y partidas a jugar.
-    
   }
 };
 
@@ -281,11 +256,9 @@ const playTheGameNow = () => {
  */
 const gameReset = () => {
   partidaActual = 0;
-  console.log("boton reset");
   putHistorial("Nueva partida");
   unmuteEventsOver(nombreJugador, partidasAJugar); // Vuelve a activar los campos nombre y partidas a jugar.
   partidasAJugar.value = 0;
-  nombreJugador.value = "";
   addTotalToSpan(partidasAJugar);
   addActualToSpan(partidaActual);
   let maquinaId = document.getElementById("maquina");
@@ -295,7 +268,6 @@ const gameReset = () => {
   document
     .getElementsByTagName("button")[1]
     .removeEventListener("click", playTheGameNow, false);
-  
 };
 
 /*********************************************************************************/
@@ -304,27 +276,19 @@ const gameReset = () => {
 /*********************************************************************************/
 // Este array no se puede modificar,
 var posibilidades = ["piedra", "papel", "tijera"];
+
 let partidaActual = 0;
-const nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Contiene el obj HTMLInputElement.
-const partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Contiene el obj HTMLInputElement.
-//const botonReset = document.getElementsByTagName("button")[2]; // Botón RESET
+const nombreJugador = document.getElementsByTagName("input")[0]; // Primer Input. Nombre del jugador.
+const partidasAJugar = document.getElementsByTagName("input")[1]; // Segundo Input. Partidas a jugar.
+
 /*
- * Primera Acción:
  *  - Asignamos el evento onclick al boton "¡JUGAR!"
  */
 document
   .getElementsByTagName("button")[0]
   .addEventListener("click", playTheGame, false);
-/*
- * Segunda Acción:
- *  - Asignamos el evento onclick al boton "¡Ya!"
- */
-/*document
-  .getElementsByTagName("button")[1]
-  .addEventListener("click", playTheGameNow, false);*/
 
 /*
- * Tercera Acción:
  *  - Asignamos el evento onclick al boton "RESET"
  */
 document
